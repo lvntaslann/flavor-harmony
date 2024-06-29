@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "634823434286",
+    "project_id": "flavor-armony-app",
+    "storage_bucket": "flavor-armony-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:634823434286:android:909d204940545d56e4ffbf",
+        "android_client_info": {
+          "package_name": "com.example.flavor_harmony_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9glimG4QRIWLvoHumupm03uPdktyTtCc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
