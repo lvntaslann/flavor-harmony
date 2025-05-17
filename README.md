@@ -1,4 +1,4 @@
-# Tafoo
+# Flavor Harmony
 Flavor Harmony, kişinin nesne tanıma işlemiyle aldığı besinleri öğünlerine ekleyebildiği, aktivitelerini takip edebileceği ve günlük su kullanımını takip edebileceği bir uygulamadır. Bu uygulama, kişinin günlük işlemlerini takip ederken nesne tanıma desteği ile zaman tasarrufu yaparak günlük kullanımı kolaylaştırmayı amaçlamıştır.
 
 
