@@ -1,0 +1,62 @@
+name: flavor_harmony_app
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.2.6 <4.0.0'
+
+dependencies:
+  cloud_firestore: ^4.15.4
+  firebase_auth: ^4.17.4
+  firebase_core: ^2.25.3
+  flutter:
+    sdk: flutter
+  percent_indicator: ^4.0.1
+  http: ^1.2.0
+  smooth_page_indicator: ^1.1.0
+  lottie: ^3.0.0
+  provider: ^6.1.2
+  hive_flutter: ^1.1.0
+  flutter_heatmap_calendar: ^1.0.5
+  flutter_slidable: ^3.1.0
+  scroll_date_picker: ^3.8.0
+  image_picker: ^1.0.8
+  image: ^4.1.7
+  google_fonts: ^6.2.0
+  tensorflow_lite_flutter: ^3.0.0
+  curved_navigation_bar: ^1.0.3
+  uuid: ^4.4.0
+  flutter_launcher_icons: ^0.13.1
+  pedometer: ^4.0.1
+  permission_handler: ^11.3.1
+  google_sign_in: ^6.2.1
+  
+  
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo.png"
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/images/play_store_512.png"
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/model/labels.txt
+    - assets/model/converted_model.tflite
+  fonts:
+    - family: Protest
+      fonts:
+        - asset: assets/fonts/ProtestStrike-Regular.ttf
+    - family: MadimiOne
+      fonts:
+        - asset: assets/fonts/MadimiOne-Regular.ttf
