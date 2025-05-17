@@ -40,12 +40,6 @@ Görseller:
     <img src="assets/addNotes.jpeg" width="130" />
   </div>
 
-  <div style="border: 1px solid white; padding: 15px; margin: 20px auto; display: inline-block; border-radius: 8px; background-color: #222;">
-    <h3 style="color: white; margin-bottom: 10px;">Chatbot</h3>
-    <img src="assets/chat-bot-home.jpeg" width="130" />
-    <img src="assets/chat-bot-message-page.jpeg" width="130" />
-  </div>
-
 </div>
 
 
