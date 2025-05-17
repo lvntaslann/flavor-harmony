@@ -15,35 +15,35 @@ Görseller:
 
   <div style="border: 1px solid white; padding: 15px; margin: 20px auto; display: inline-block; border-radius: 8px; background-color: #222;">
     <h3 style="color: white; margin-bottom: 10px;">Splash & Tanıtım sayfaları</h3>
-    <img src="assets/splash-screen.png" width="130" />
-    <img src="assets/acilisekrani1.png" width="130" />
-    <img src="assets/acilisekrani2.png" width="130" />
-    <img src="assets/acilisekrani3.png" width="130" />
+    <img src="assets/splash-screen.jpeg" width="130" />
+    <img src="assets/acilisekrani1.jpeg" width="130" />
+    <img src="assets/acilisekrani2.jpeg" width="130" />
+    <img src="assets/acilisekrani3.jpeg" width="130" />
   </div>
 
   <div style="border: 1px solid white; padding: 15px; margin: 20px auto; display: inline-block; border-radius: 8px; background-color: #222;">
     <h3 style="color: white; margin-bottom: 10px;">Giriş, Kayıt & Kullanıcı bilgileri sayfaları</h3>
-    <img src="assets/login.png" width="130" />
-    <img src="assets/signup.png" width="130" />
-    <img src="assets/age.png" width="130" />
-    <img src="assets/gender.png" width="130" />
-    <img src="assets/heightsandweights.png" width="130" />
-    <img src="assets/bmiscore.png" width="130" />
+    <img src="assets/login.jpeg" width="130" />
+    <img src="assets/signup.jpeg" width="130" />
+    <img src="assets/age.jpeg" width="130" />
+    <img src="assets/gender.jpeg" width="130" />
+    <img src="assets/heightsandweights.jpeg" width="130" />
+    <img src="assets/bmiscore.jpeg" width="130" />
 
   </div>
 
   <div style="border: 1px solid white; padding: 15px; margin: 20px auto; display: inline-block; border-radius: 8px; background-color: #222;">
     <h3 style="color: white; margin-bottom: 10px;">Anasayfa & Öğün ekleme sayfası & Günlük kalori değerleri & Görev ekleme</h3>
-    <img src="assets/homepage_new.png" width="130" />
-    <img src="assets/breakfast.png" width="130" />
-    <img src="assets/gunlukkalori.png" width="130" />
-    <img src="assets/addNotes.png" width="130" />
+    <img src="assets/homepage_new.jpeg" width="130" />
+    <img src="assets/breakfast.jpeg" width="130" />
+    <img src="assets/gunlukkalori.jpeg" width="130" />
+    <img src="assets/addNotes.jpeg" width="130" />
   </div>
 
   <div style="border: 1px solid white; padding: 15px; margin: 20px auto; display: inline-block; border-radius: 8px; background-color: #222;">
     <h3 style="color: white; margin-bottom: 10px;">Chatbot</h3>
-    <img src="assets/chat-bot-home.png" width="130" />
-    <img src="assets/chat-bot-message-page.png" width="130" />
+    <img src="assets/chat-bot-home.jpeg" width="130" />
+    <img src="assets/chat-bot-message-page.jpeg" width="130" />
   </div>
 
 </div>
