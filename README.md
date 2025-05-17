@@ -15,29 +15,29 @@ Görseller:
 
   <div style="border: 1px solid white; padding: 15px; margin: 20px auto; display: inline-block; border-radius: 8px; background-color: #222;">
     <h3 style="color: white; margin-bottom: 10px;">Splash & Tanıtım sayfaları</h3>
-    <img src="assets/splash-screen.jpeg" width="130" />
-    <img src="assets/acilisekrani1.jpeg" width="130" />
-    <img src="assets/acilisekrani2.jpeg" width="130" />
-    <img src="assets/acilisekrani3.jpeg" width="130" />
+    <img src="readme-assets/splash-screen.jpeg" width="130" />
+    <img src="readme-assets/acilisekrani1.jpeg" width="130" />
+    <img src="readme-assets/acilisekrani2.jpeg" width="130" />
+    <img src="readme-assets/acilisekrani3.jpeg" width="130" />
   </div>
 
   <div style="border: 1px solid white; padding: 15px; margin: 20px auto; display: inline-block; border-radius: 8px; background-color: #222;">
     <h3 style="color: white; margin-bottom: 10px;">Giriş, Kayıt & Kullanıcı bilgileri sayfaları</h3>
-    <img src="assets/login.jpeg" width="130" />
-    <img src="assets/signup.jpeg" width="130" />
-    <img src="assets/age.jpeg" width="130" />
-    <img src="assets/gender.jpeg" width="130" />
-    <img src="assets/heightsandweights.jpeg" width="130" />
-    <img src="assets/bmiscore.jpeg" width="130" />
+    <img src="readme-assets/login.jpeg" width="130" />
+    <img src="readme-assets/signup.jpeg" width="130" />
+    <img src="readme-assets/age.jpeg" width="130" />
+    <img src="readme-assets/gender.jpeg" width="130" />
+    <img src="readme-assets/heightsandweights.jpeg" width="130" />
+    <img src="readme-assets/bmiscore.jpeg" width="130" />
 
   </div>
 
   <div style="border: 1px solid white; padding: 15px; margin: 20px auto; display: inline-block; border-radius: 8px; background-color: #222;">
     <h3 style="color: white; margin-bottom: 10px;">Anasayfa & Öğün ekleme sayfası & Günlük kalori değerleri & Görev ekleme</h3>
-    <img src="assets/homepage_new.jpeg" width="130" />
-    <img src="assets/breakfast.jpeg" width="130" />
-    <img src="assets/gunlukkalori.jpeg" width="130" />
-    <img src="assets/addNotes.jpeg" width="130" />
+    <img src="readme-assets/homepage_new.jpeg" width="130" />
+    <img src="readme-assets/breakfast.jpeg" width="130" />
+    <img src="readme-assets/gunlukkalori.jpeg" width="130" />
+    <img src="readme-assets/addNotes.jpeg" width="130" />
   </div>
 
 </div>
