@@ -1,2 +1,3 @@
-cnn-models/*.ipynb linguist-vendored linguist-detectable=false
+*.ipynb linguist-vendored linguist-generated
+cnn-models/*.ipynb linguist-vendored linguist-generated
 lib/*.dart linguist-language = Dart
