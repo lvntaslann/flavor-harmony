@@ -1,2 +1,2 @@
-cnn-models/*.ipynb linguist-vendored
+cnn-models/*.ipynb linguist-detectable=false
 lib/*.dart linguist-language = Dart
