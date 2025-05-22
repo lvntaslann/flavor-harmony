@@ -1,12 +1,13 @@
 import 'dart:io';
 import 'package:flavor_harmony_app/model/ai_model.dart';
-import 'package:flavor_harmony_app/pages/takeImages.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../model/food.dart';
 import '../services/crud_food.dart';
 import '../services/edamam-api-services.dart';
+import 'package:flavor_harmony_app/widget/search_food_and_take_images.dart';
+import 'package:flavor_harmony_app/widget/eaten_meals.dart';
 
 class MealPage extends StatefulWidget {
   final String meal;
@@ -25,8 +26,7 @@ class _MealPageState extends State<MealPage> {
   TextEditingController _amountController = TextEditingController();
   double totalCalories = 0.0;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  late User _user; // Firestore kullanıcı kimliğini tutmak için
-  bool _isLoading = false; // Eklenen ve Silinen öğeler için yükleme göstergesi
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -71,9 +71,6 @@ class _MealPageState extends State<MealPage> {
     FirebaseAuth _auth = FirebaseAuth.instance;
     _auth.authStateChanges().listen((User? user) async {
       if (user != null) {
-        setState(() {
-          _user = user;
-        });
         await crudFood.fetchSelectedMeals('meal_${widget.meal}');
         setState(() {
           crudFood.selectedItems = List.from(crudFood.selectedItems);
@@ -93,7 +90,19 @@ class _MealPageState extends State<MealPage> {
         children: [
           Padding(
             padding: EdgeInsets.all(10),
-            child: searchFoodAndTakeImages(),
+            child: SearchFoodAndTakeImages(
+              searchController: _searchController,
+              edamamApiService: edamamApiService,
+              onResults: (results) {
+                setState(() {
+                  _searchResults = results;
+                  _searchController.clear();
+                });
+              },
+              onImageSelected: (File image) {
+                classifyAndAddFood(image);
+              },
+            ),
           ),
           Expanded(
             child: ListView.builder(
@@ -178,7 +187,13 @@ class _MealPageState extends State<MealPage> {
             ),
           ),
           SizedBox(height: 20),
-          eatenMeals(),
+          EatenMeals(
+            crudFood: crudFood,
+            totalCalories: totalCalories,
+            mealKey: 'meal_${widget.meal}',
+            isLoading: _isLoading,
+            setLoading: (val) => setState(() => _isLoading = val),
+          ),
           if (_isLoading)
             Container(
               color: Colors.black.withOpacity(0.5),
@@ -188,114 +203,6 @@ class _MealPageState extends State<MealPage> {
             ),
         ],
       ),
-    );
-  }
-
-  Container eatenMeals() {
-    return Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Selected Items',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-          ),
-          SizedBox(height: 10),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: crudFood.selectedItems.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                leading: crudFood.selectedItems[index].imageUrl != null
-                    ? Image.network(
-                        crudFood.selectedItems[index].imageUrl!,
-                        width: 50,
-                        height: 50,
-                        fit: BoxFit.cover,
-                      )
-                    : SizedBox(
-                        width: 50,
-                        height: 50,
-                        child: Placeholder(),
-                      ),
-                title: Text(crudFood.selectedItems[index].name),
-                subtitle:
-                    Text('${crudFood.selectedItems[index].calories} kcal'),
-                trailing: SizedBox(
-                  width: 100,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Flexible(
-                        child: Text(
-                          'Amount: ${crudFood.selectedItems[index].amount}g',
-                          style: TextStyle(fontSize: 12),
-                        ),
-                      ),
-                      IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () async {
-                            setState(() {
-                              _isLoading = true;
-                            });
-                            await crudFood.deleteSelectedMeal(
-                                crudFood.selectedItems[index],
-                                'meal_${widget.meal}');
-                            setState(() {
-                              _isLoading = false;
-                            });
-                          }),
-                    ],
-                  ),
-                ),
-              );
-            },
-          ),
-          SizedBox(height: 10),
-          Text(
-            'Total Calories: $totalCalories kcal',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Row searchFoodAndTakeImages() {
-    return Row(
-      children: [
-        Expanded(
-          child: TextField(
-            controller: _searchController,
-            decoration: InputDecoration(
-              labelText: 'Search for food',
-              suffixIcon: IconButton(
-                  icon: Icon(Icons.search),
-                  onPressed: () async {
-                    String query = _searchController.text.trim();
-                    if (query.isNotEmpty) {
-                      List<FoodItem> results =
-                          await edamamApiService.fetchFoodItems(query);
-                      setState(() {
-                        _searchResults = results;
-                        _searchController.clear(); // temizle
-                      });
-                    }
-                  }),
-            ),
-          ),
-        ),
-        TakeImages(
-          onImageSelected: (File image) {
-            classifyAndAddFood(image);
-          },
-        ),
-      ],
     );
   }
 }

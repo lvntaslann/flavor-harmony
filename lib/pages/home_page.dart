@@ -58,7 +58,6 @@ class _HomePageState extends State<HomePage> {
   AppBar appBar() {
     return AppBar(
       backgroundColor: Color.fromARGB(255, 31, 31, 31),
-      elevation: 0,
     );
   }
 }

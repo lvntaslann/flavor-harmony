@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class AgeScreen extends StatefulWidget {
   final String gender;
-  bool isGoogleSignIn;
+  final bool isGoogleSignIn; // <-- final olarak değiştirildi
   AgeScreen({
     super.key,
     required this.gender,

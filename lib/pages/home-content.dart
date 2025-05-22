@@ -14,6 +14,7 @@ import 'package:flavor_harmony_app/pages/auth/sign_up.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 import '../widget/button/today_calorie_button.dart';
+import 'package:flavor_harmony_app/utils/meal_list.dart';
 
 //doğru olan body
 class HomeContent extends StatefulWidget {
@@ -58,12 +59,12 @@ class _HomeContentState extends State<HomeContent> {
     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Column(
-        children: <Widget>[
+        children:[
           Container(
             margin: EdgeInsets.only(bottom: 20.0 * 2.5),
             height: size.height * 0.40,
             child: Stack(
-              children: <Widget>[
+              children:[
                 Container(
                     padding:
                         EdgeInsets.only(left: 20.0, right: 20.0, bottom: 300),
@@ -92,36 +93,23 @@ class _HomeContentState extends State<HomeContent> {
               TodayCalorieButton(routeServices: routeServices)
             ],
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                MealContainer(
-                    image: "assets/images/simple-breakfast.png",
-                    title: "Breakfast",
-                    press: () {
-                      routeServices.goMealPage(context,'breakfast');
-                    }),
-                MealContainer(
-                    image: "assets/images/simple-lunch.png",
-                    title: "Lunch",
-                    press: () {
-                      routeServices.goMealPage(context,'launch');
-                    }),
-                MealContainer(
-                    image: "assets/images/simple-sneack.png",
-                    title: "Snack",
-                    press: () {
-                      routeServices.goMealPage(context,'snack');
-                    }),
-                MealContainer(
-                  image: "assets/images/simple-dinner.png",
-                  title: "Dinner",
+          SizedBox(
+            height: 350,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: mealList.length,
+              shrinkWrap: true,
+              physics: BouncingScrollPhysics(),
+              itemBuilder: (context, index) {
+                final meal = mealList[index];
+                return MealContainer(
+                  image: meal['image']!,
+                  title: meal['title']!,
                   press: () {
-                    routeServices.goMealPage(context,'dinner');
+                    routeServices.goMealPage(context, meal['key']!);
                   },
-                ),
-              ],
+                );
+              },
             ),
           ),
           Padding(
