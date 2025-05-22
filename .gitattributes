@@ -1,2 +1,2 @@
-user-interface/cnn-models/*.ipynb linguist-vendored
-user-interface/lib/*.dart linguist-language = Dart
+cnn-models/*.ipynb linguist-vendored
+lib/*.dart linguist-language = Dart
