@@ -1,6 +1,7 @@
 import 'package:flavor_harmony_app/pages/BMI-calculator/height_weight_screen.dart';
-import 'package:flavor_harmony_app/pages/BMI-calculator/next_text_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flavor_harmony_app/widget/bmi/text_container.dart';
+import 'package:flavor_harmony_app/widget/bmi/next_button.dart';
 
 class AgeScreen extends StatefulWidget {
   final String gender;

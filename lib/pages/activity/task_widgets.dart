@@ -1,11 +1,11 @@
 import 'package:flavor_harmony_app/pages/activity/edit_screen.dart';
-import 'package:flavor_harmony_app/pages/activity/firestor.dart';
-import 'package:flavor_harmony_app/pages/activity/note_model.dart';
+import 'package:flavor_harmony_app/model/note_model.dart';
+import 'package:flavor_harmony_app/services/note_services.dart';
 import 'package:flutter/material.dart';
 
 class TaskWidgets extends StatefulWidget {
-  final Note _note;
-  TaskWidgets(this._note, {Key? key}) : super(key: key);
+  final Note note;
+  TaskWidgets(this.note, {Key? key}) : super(key: key);
 
   @override
   _TaskWidgetsState createState() => _TaskWidgetsState();
@@ -17,7 +17,7 @@ class _TaskWidgetsState extends State<TaskWidgets> {
   @override
   void initState() {
     super.initState();
-    isDone = widget._note.isDon;
+    isDone = widget.note.isDon;
   }
 
   @override
@@ -55,7 +55,7 @@ class _TaskWidgetsState extends State<TaskWidgets> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          widget._note.title,
+                          widget.note.title,
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
@@ -64,8 +64,8 @@ class _TaskWidgetsState extends State<TaskWidgets> {
                           onChanged: (value) {
                             setState(() {
                               isDone = value!;
-                              FirestoreDatasource()
-                                  .toggleIsDone(widget._note.id, isDone);
+                              NoteServices()
+                                  .toggleIsDone(widget.note.id, isDone);
                             });
                           },
                         ),
@@ -73,7 +73,7 @@ class _TaskWidgetsState extends State<TaskWidgets> {
                     ),
                     SizedBox(height: 5),
                     Text(
-                      widget._note.subtitle,
+                      widget.note.subtitle,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -85,9 +85,9 @@ class _TaskWidgetsState extends State<TaskWidgets> {
                       padding: const EdgeInsets.symmetric(vertical: 12),
                       child: Row(
                         children: [
-                          timeContainer(),
+                          Expanded(child: timeContainer()),
                           SizedBox(width: 10),
-                          editButton(),
+                          Expanded(child: editButton()),
                         ],
                       ),
                     ),
@@ -108,7 +108,7 @@ class _TaskWidgetsState extends State<TaskWidgets> {
       decoration: BoxDecoration(
         color: Colors.white,
         image: DecorationImage(
-          image: AssetImage("assets/images/${widget._note.image}.png"),
+          image: AssetImage("assets/images/${widget.note.image}.png"),
           fit: BoxFit.cover,
         ),
       ),
@@ -131,7 +131,7 @@ class _TaskWidgetsState extends State<TaskWidgets> {
             Icon(Icons.timer, color: Colors.white),
             SizedBox(width: 10),
             Text(
-              widget._note.time,
+              widget.note.time,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 14,
@@ -149,7 +149,7 @@ class _TaskWidgetsState extends State<TaskWidgets> {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => EditScreen(widget._note),
+            builder: (context) => EditScreen(widget.note),
           ),
         );
       },

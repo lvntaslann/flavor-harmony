@@ -59,12 +59,12 @@ class _HomeContentState extends State<HomeContent> {
     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Column(
-        children:[
+        children: [
           Container(
             margin: EdgeInsets.only(bottom: 20.0 * 2.5),
             height: size.height * 0.40,
             child: Stack(
-              children:[
+              children: [
                 Container(
                     padding:
                         EdgeInsets.only(left: 20.0, right: 20.0, bottom: 300),
@@ -74,11 +74,12 @@ class _HomeContentState extends State<HomeContent> {
                         borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(36),
                             bottomRight: Radius.circular(36))),
-                    child: DateTimeWidget(
-                        userName: userInformationServices.userName!,
-                        usernameFuture:
-                            usernameFuture) //dateTimeWidget(context),
-                    ),
+                    child: userInformationServices.userName == null
+                        ? Center(child: CircularProgressIndicator())
+                        : DateTimeWidget(
+                            userName: userInformationServices.userName!,
+                            usernameFuture: usernameFuture,
+                          )),
                 ShowTotalCalory(calorieFuture: calorieFuture),
                 SizedBox(height: 200),
                 MySearchBar(searchController: _searchController),
@@ -140,59 +141,7 @@ class _HomeContentState extends State<HomeContent> {
                   borderRadius: BorderRadius.circular(10),
                   color: Color.fromARGB(255, 0, 195, 217),
                 ),
-                child: Consumer<UserInformationServices>(
-                  builder: (context, userInformationServices, child) {
-                    return Column(
-                      children: [
-                        Text(
-                          userInformationServices.metin + 'ml',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: List.generate(
-                                userInformationServices.imageCount, (index) {
-                              return Container(
-                                margin: EdgeInsets.only(right: 8.0),
-                                child: Column(
-                                  children: [
-                                    Image.asset(
-                                      "assets/images/glass-removebg-preview.png",
-                                      width: 50,
-                                      height: 70,
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }),
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                userInformationServices.removeImage();
-                              },
-                              icon: Icon(Icons.remove_circle_outline_rounded),
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                userInformationServices.addImage();
-                              },
-                              icon: Icon(Icons.add_circle_outline_rounded),
-                            ),
-                          ],
-                        ),
-                      ],
-                    );
-                  },
-                ),
+                child: DrinkWaterControl(),
               ),
             ],
           ),
@@ -212,6 +161,62 @@ class _HomeContentState extends State<HomeContent> {
               ))
         ],
       ),
+    );
+  }
+
+  Consumer<UserInformationServices> DrinkWaterControl() {
+    return Consumer<UserInformationServices>(
+      builder: (context, userInformationServices, child) {
+        return Column(
+          children: [
+            Text(
+              userInformationServices.metin + 'ml',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children:
+                    List.generate(userInformationServices.imageCount, (index) {
+                  return Container(
+                    margin: EdgeInsets.only(right: 8.0),
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          "assets/images/glass-removebg-preview.png",
+                          width: 50,
+                          height: 70,
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+              ),
+            ),
+            SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    userInformationServices.removeImage();
+                  },
+                  icon: Icon(Icons.remove_circle_outline_rounded),
+                ),
+                IconButton(
+                  onPressed: () {
+                    userInformationServices.addImage();
+                  },
+                  icon: Icon(Icons.add_circle_outline_rounded),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
     );
   }
 }

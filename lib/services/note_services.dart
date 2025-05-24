@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flavor_harmony_app/pages/workout/note_model.dart';
+import 'package:flavor_harmony_app/model/note_model.dart';
 import 'package:uuid/uuid.dart';
 
-class FirestoreDatasource {
+class NoteServices {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 

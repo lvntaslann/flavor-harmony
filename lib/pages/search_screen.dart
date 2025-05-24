@@ -1,8 +1,8 @@
-
 import 'package:flavor_harmony_app/pages/food_details_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../services/edamam-api-services.dart';
+import 'package:flavor_harmony_app/utils/nutrient_keys.dart';
 
 class SearchScreen extends StatefulWidget {
   final String query;
@@ -86,23 +86,15 @@ class _SearchScreenState extends State<SearchScreen> {
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Kalori: ${nutrients['ENERC_KCAL']} kcal',
-                    style: TextStyle(color: Colors.white),
+                  ListView.builder(
+                    itemCount: nutrientLabels.length,
+                    itemBuilder: (context, nIndex) {
+                      return Text(
+                        '${nutrientLabels[nIndex]}: ${nutrients[nutrientKeys[nIndex]]} ${nutrientUnits[nIndex]}',
+                        style: TextStyle(color: Colors.white),
+                      );
+                    },
                   ),
-                  Text(
-                    'Protein: ${nutrients['PROCNT']} g',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  Text(
-                    'Yağ: ${nutrients['FAT']} g',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  Text(
-                    'Karbonhidrat: ${nutrients['CHOCDF']} g',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  // Diğer besin öğelerini buraya ekleyebilirsiniz
                 ],
               ),
             );

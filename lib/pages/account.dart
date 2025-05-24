@@ -2,12 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flavor_harmony_app/pages/auth/login_page.dart';
 import 'package:flavor_harmony_app/services/calculate_calorie.dart';
-import 'package:flavor_harmony_app/services/get_account_details.dart';
+import 'package:flavor_harmony_app/services/user-information-services.dart';
+import 'package:flavor_harmony_app/widget/container/calory_detail_user.dart';
 import 'package:flavor_harmony_app/widget/container/information_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../model/users.dart';
 
@@ -22,7 +22,7 @@ class _AccountState extends State<Account> {
   final currentUsers = FirebaseAuth.instance.currentUser;
   final firebaseFirestore = FirebaseFirestore.instance;
 
-  late GetAccountDetail accountDetail;
+  late UserInformationServices accountDetail;
   late Future<Map<String, double>> calorieFuture;
 
   Future<Map<String, double>> fetchCalorieData() async {
@@ -38,7 +38,7 @@ class _AccountState extends State<Account> {
   @override
   void initState() {
     super.initState();
-    accountDetail = GetAccountDetail(firebaseFirestore, FirebaseAuth.instance);
+    accountDetail = UserInformationServices();
     calorieFuture = fetchCalorieData();
     loadUserData();
   }
@@ -72,19 +72,18 @@ class _AccountState extends State<Account> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
-              child: getCaloryDetailUser(),
+              child: CaloryDetailUser(calorieFuture: calorieFuture),
             ),
             ListView(
               shrinkWrap: true,
               children: [
                 InformationUser(text: "Username: ${Users.username}"),
-
                 SizedBox(height: 20),
-                InformationUser(text:"Email: ${Users.email}"),
+                InformationUser(text: "Email: ${Users.email}"),
                 SizedBox(height: 20),
-                InformationUser(text:"Age: ${Users.age}"),
+                InformationUser(text: "Age: ${Users.age}"),
                 SizedBox(height: 20),
-                InformationUser(text:"Gender: ${Users.gender}"),
+                InformationUser(text: "Gender: ${Users.gender}"),
                 SizedBox(height: 20),
                 InformationUser(text: "Height: ${Users.height}"),
                 SizedBox(height: 20),
@@ -112,81 +111,4 @@ class _AccountState extends State<Account> {
       ),
     );
   }
-
-  Widget getCaloryDetailUser() {
-    return FutureBuilder<Map<String, double>>(
-      future: calorieFuture,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else if (!snapshot.hasData) {
-          return Center(child: Text('No data available'));
-        }
-
-        double calorieRequirement = snapshot.data!['required']!;
-        double consumedCalories = snapshot.data!['consumed']!;
-
-        // calorieRequirement değeri sıfır mı kontrol et
-        double percent = (calorieRequirement != 0)
-            ? consumedCalories / calorieRequirement
-            : 0;
-
-        return Container(
-          width: 200,
-          height: 200,
-          child: Center(
-            child: Stack(
-              children: [
-                Center(
-                  child: CircularPercentIndicator(
-                    radius: 80.0,
-                    lineWidth: 15.0,
-                    circularStrokeCap: CircularStrokeCap.round,
-                    percent: percent,
-                    center: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "$calorieRequirement",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.amber,
-                            fontSize: 22,
-                          ),
-                        ),
-                        Text(
-                          "Kcal",
-                          style: TextStyle(
-                            color: Colors.amber,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Text(
-                          "Consumed calory",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        Text(
-                          "$consumedCalories Kcal",
-                          style: TextStyle(
-                            color: Colors.amber,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                    backgroundColor: Color.fromARGB(255, 115, 115, 115),
-                    progressColor: Colors.amber,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
 }

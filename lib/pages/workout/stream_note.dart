@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flavor_harmony_app/pages/workout/task_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flavor_harmony_app/pages/workout/firestor.dart'; // FirestoreDatasource import edildi
+import 'package:flavor_harmony_app/services/note_services.dart'; // FirestoreDatasource import edildi
 
 class StreamNote extends StatelessWidget {
   final bool done;
@@ -11,7 +11,7 @@ class StreamNote extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirestoreDatasource()
+      stream: NoteServices()
           .stream(done), // FirestoreDatasource'tan stream metodunu kullanıyoruz
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -24,7 +24,7 @@ class StreamNote extends StatelessWidget {
           return Center(child: Text('Lets add the event!'));
         }
 
-        final notelist = FirestoreDatasource().getNotes(
+        final notelist = NoteServices().getNotes(
             snapshot.data!); // FirestoreDatasource'tan notları alıyoruz
         return ListView.builder(
           shrinkWrap: true,
@@ -34,7 +34,7 @@ class StreamNote extends StatelessWidget {
             return Dismissible(
               key: UniqueKey(),
               onDismissed: (direction) {
-                FirestoreDatasource().deleteNote(note.id);
+                NoteServices().deleteNote(note.id);
               },
               background: Container(
                 color: Colors.red,

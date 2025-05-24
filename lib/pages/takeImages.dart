@@ -1,9 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import '../services/image_picker_service.dart';
 
 class TakeImages extends StatelessWidget {
-  final Function(File) onImageSelected; // onImageSelected parametresi eklendi
+  final Function(File) onImageSelected;
 
   const TakeImages({Key? key, required this.onImageSelected}) : super(key: key);
 
@@ -18,9 +20,10 @@ class TakeImages extends StatelessWidget {
   }
 
   Future<void> _showImageSourceOptions(BuildContext context) async {
+    final imagePickerService = Provider.of<ImagePickerService>(context, listen: false);
     showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (BuildContext dialogContext) {
         return AlertDialog(
           title: Text("Select Image Source"),
           content: Column(
@@ -30,16 +33,24 @@ class TakeImages extends StatelessWidget {
                 leading: Icon(Icons.camera),
                 title: Text("Take a photo"),
                 onTap: () async {
-                  Navigator.pop(context);
-                  await _getImageFromCamera(context);
+                  Navigator.pop(dialogContext);
+                  await imagePickerService.pickImage(context, ImageSource.camera);
+                  final image = imagePickerService.selectedImage;
+                  if (image != null) {
+                    onImageSelected(image);
+                  }
                 },
               ),
               ListTile(
                 leading: Icon(Icons.image),
-                title: Text("Select from galery"),
+                title: Text("Select from gallery"),
                 onTap: () async {
-                  Navigator.pop(context);
-                  await _getImageFromGallery(context);
+                  Navigator.pop(dialogContext);
+                  await imagePickerService.pickImage(context, ImageSource.gallery);
+                  final image = imagePickerService.selectedImage;
+                  if (image != null) {
+                    onImageSelected(image);
+                  }
                 },
               ),
             ],
@@ -47,29 +58,5 @@ class TakeImages extends StatelessWidget {
         );
       },
     );
-  }
-
-  Future<void> _getImageFromCamera(BuildContext context) async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.camera);
-    _processImage(context, pickedFile);
-  }
-
-  Future<void> _getImageFromGallery(BuildContext context) async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-    _processImage(context, pickedFile);
-  }
-
-  void _processImage(BuildContext context, XFile? pickedFile) {
-    if (pickedFile != null) {
-      File imageFile = File(pickedFile.path);
-      onImageSelected(
-          imageFile); // Seçilen resmi iletmek için callback kullanılıyor
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Resim seçilmedi')),
-      );
-    }
   }
 }

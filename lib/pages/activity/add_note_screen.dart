@@ -1,4 +1,4 @@
-import 'package:flavor_harmony_app/pages/activity/firestor.dart';
+import 'package:flavor_harmony_app/services/note_services.dart';
 import 'package:flutter/material.dart';
 
 class AddNoteScreen extends StatefulWidget {
@@ -28,7 +28,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
     String title = titleController.text;
     String subtitle = subtitleController.text;
     int image = selectedIndex;
-    bool success = await FirestoreDatasource().addNote(
+    bool success = await NoteServices().addNote(
       subtitle,
       title,
       image,

@@ -1,6 +1,7 @@
-import 'package:flavor_harmony_app/pages/BMI-calculator/calculation.dart';
-import 'package:flavor_harmony_app/pages/BMI-calculator/next_text_button.dart';
+import 'package:flavor_harmony_app/model/calculation.dart';
 import 'package:flavor_harmony_app/pages/BMI-calculator/result_screen.dart';
+import 'package:flavor_harmony_app/widget/bmi/hw_title.dart';
+import 'package:flavor_harmony_app/widget/bmi/text_container.dart';
 import 'package:flutter/material.dart';
 
 class HWScreen extends StatefulWidget {
@@ -47,7 +48,7 @@ class _HWScreenState extends State<HWScreen> {
                 'https://lottie.host/8519b945-79bd-4c34-8a0c-a4798c530f3b/xmPxvAjZ3K.json',
           ),
           const SizedBox(height: 50),
-          const Title(title: 'Height'),
+          HWTitle(title: 'Height'),
           Padding(
             padding: EdgeInsets.only(right: size.width * 0.1),
             child: Row(
@@ -92,7 +93,7 @@ class _HWScreenState extends State<HWScreen> {
             ),
           ),
           const SizedBox(height: 50),
-          const Title(title: 'Weight'),
+          HWTitle(title: 'Weight'),
           Padding(
             padding: EdgeInsets.only(right: size.width * 0.1),
             child: Row(
@@ -186,29 +187,6 @@ class _HWScreenState extends State<HWScreen> {
             ),
           )
         ],
-      ),
-    );
-  }
-}
-
-class Title extends StatelessWidget {
-  const Title({
-    Key? key,
-    required this.title,
-  }) : super(key: key);
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 15.0),
-      child: Text(
-        title,
-        style: const TextStyle(
-          fontSize: 30,
-          fontWeight: FontWeight.w500,
-          color: Colors.white,
-        ),
       ),
     );
   }

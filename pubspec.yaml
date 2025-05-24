@@ -31,6 +31,7 @@ dependencies:
   pedometer: ^4.0.1
   permission_handler: ^11.3.1
   google_sign_in: ^6.2.1
+  flutter_dotenv: ^5.2.1
   
   
 
@@ -53,6 +54,7 @@ flutter:
     - assets/images/
     - assets/model/labels.txt
     - assets/model/converted_model.tflite
+    - .env
   fonts:
     - family: Protest
       fonts:

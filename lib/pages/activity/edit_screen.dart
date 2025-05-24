@@ -1,6 +1,6 @@
-import 'package:flavor_harmony_app/pages/activity/firestor.dart';
-import 'package:flavor_harmony_app/pages/activity/note_model.dart';
+import 'package:flavor_harmony_app/services/note_services.dart';
 import 'package:flutter/material.dart';
+import '../../model/note_model.dart';
 
 class EditScreen extends StatefulWidget {
   final Note _note;
@@ -40,7 +40,7 @@ class _EditScreenState extends State<EditScreen> {
     String subtitle = subtitleController?.text ?? '';
     int image = selectedIndex;
 
-    bool success = await FirestoreDatasource().updateNote(
+    bool success = await NoteServices().updateNote(
       widget._note.id,
       image,
       title,

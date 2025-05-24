@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flavor_harmony_app/pages/activity/task_widgets.dart';
+import 'package:flavor_harmony_app/services/note_services.dart';
 import 'package:flutter/material.dart';
-import 'package:flavor_harmony_app/pages/activity/firestor.dart';
 
 class StreamNote extends StatelessWidget {
   final bool done;
@@ -11,7 +11,7 @@ class StreamNote extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirestoreDatasource().stream(done),
+      stream: NoteServices().stream(done),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
@@ -23,7 +23,7 @@ class StreamNote extends StatelessWidget {
           return Center(child: Text('Lets add the event!'));
         }
 
-        final notelist = FirestoreDatasource().getNotes(snapshot.data!);
+        final notelist = NoteServices().getNotes(snapshot.data!);
         return ListView.builder(
           shrinkWrap: true,
           itemCount: notelist.length,
@@ -32,7 +32,7 @@ class StreamNote extends StatelessWidget {
             return Dismissible(
               key: UniqueKey(),
               onDismissed: (direction) {
-                FirestoreDatasource().deleteNote(note.id);
+                NoteServices().deleteNote(note.id);
               },
               background: Container(
                 color: Colors.red,
